@@ -17,7 +17,6 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
@@ -35,16 +34,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .ignoringAntMatchers("/actuator/hystrix.stream")
             .disable()
             .authorizeRequests()
-            .antMatchers("/employees/registration")
+            .antMatchers("/auth/**")
             .not()
             .fullyAuthenticated()
-            .antMatchers("/auth/**")
+            .antMatchers("/api/**")
             .permitAll()
             .antMatchers("/reserves/**")
             .permitAll()
-            .antMatchers("/rooms/**")
-            .permitAll()
-            .antMatchers("/admin/**")
+            .antMatchers("/api/admin/**")
             .hasAuthority("ADMIN")
             .anyRequest()
             .authenticated()
